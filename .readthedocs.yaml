@@ -10,5 +10,8 @@ build:
     pre_build:
       - jupyter-book config sphinx .
 
+output:
+  - html
+
 conda:
   environment: environment.yaml
