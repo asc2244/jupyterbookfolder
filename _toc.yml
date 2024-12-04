@@ -1,0 +1,10 @@
+format: jb-article
+root: index
+title: Home
+sections:
+- file: projects/project_1
+  title: Project 1
+- file: projects/project_2
+  title: Project 2
+- file: projects/project_3
+  title: Project 3

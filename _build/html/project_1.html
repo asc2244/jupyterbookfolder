@@ -1,0 +1,1020 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Mean using pandas &#8212; My Jupyter Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.4cbf315f70debaebd550c87a6162cf0f.min.css" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'project_1';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">My Jupyter Book</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="index.html">
+                    Welcome <3
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="projects/project_1.html">Project 1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="projects/project_2.html">Project 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="projects/project_3.html">Project 3</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/project_1.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Mean using pandas</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Mean using pandas</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#median-using-pandas">Median using pandas</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#mode-using-pandas">Mode using pandas</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#mean-using-python-standard-library">Mean using Python standard library</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#median-using-python-standard-library">Median using Python standard library</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#mode-using-python-standard-library">Mode using Python standard library</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#data-visualization">Data Visualization</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#disclaimers">Disclaimers</a></li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="c1">#reading the data in pandas </span>
+<span class="n">netflix_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;/Users/alexachan/Downloads/netflix_data - data.csv&#39;</span><span class="p">)</span>
+<span class="n">netflix_data</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>url</th>
+      <th>title</th>
+      <th>type</th>
+      <th>genres</th>
+      <th>releaseYear</th>
+      <th>imdbId</th>
+      <th>imdbAverageRating</th>
+      <th>imdbNumVotes</th>
+      <th>availableCountries</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>https://www.netflix.com/title/60000724</td>
+      <td>Forrest Gump</td>
+      <td>movie</td>
+      <td>Drama, Romance</td>
+      <td>1994</td>
+      <td>tt0109830</td>
+      <td>8.8</td>
+      <td>2313221</td>
+      <td>MX</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>https://www.netflix.com/title/1154386</td>
+      <td>The Fifth Element</td>
+      <td>movie</td>
+      <td>Action, Adventure, Sci-Fi</td>
+      <td>1997</td>
+      <td>tt0119116</td>
+      <td>7.6</td>
+      <td>516523</td>
+      <td>AT, CH, DE</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>https://www.netflix.com/title/60031236</td>
+      <td>Kill Bill: Vol. 1</td>
+      <td>movie</td>
+      <td>Action, Crime, Thriller</td>
+      <td>2003</td>
+      <td>tt0266697</td>
+      <td>8.2</td>
+      <td>1220488</td>
+      <td>AE, AL, AO, AT, AU, AZ, BG, BH, BY, CA, CI, CM...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>https://www.netflix.com/title/70021659</td>
+      <td>Jarhead</td>
+      <td>movie</td>
+      <td>Biography, Drama, War</td>
+      <td>2005</td>
+      <td>tt0418763</td>
+      <td>7.0</td>
+      <td>211314</td>
+      <td>AD, AE, AG, AL, AO, AR, AT, AZ, BA, BB, BE, BG...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>https://www.netflix.com/title/1080395</td>
+      <td>Unforgiven</td>
+      <td>movie</td>
+      <td>Drama, Western</td>
+      <td>1992</td>
+      <td>tt0105695</td>
+      <td>8.2</td>
+      <td>443310</td>
+      <td>AU, BA, BE, BG, CZ, HR, HU, MD, ME, MK, NZ, PL...</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>1070</th>
+      <td>https://www.netflix.com/title/70028900</td>
+      <td>Red Eye</td>
+      <td>movie</td>
+      <td>Thriller</td>
+      <td>2005</td>
+      <td>tt0421239</td>
+      <td>6.5</td>
+      <td>150744</td>
+      <td>BR, ES</td>
+    </tr>
+    <tr>
+      <th>1071</th>
+      <td>https://www.netflix.com/title/70036290</td>
+      <td>Slim Susie</td>
+      <td>movie</td>
+      <td>Comedy, Crime, Mystery</td>
+      <td>2003</td>
+      <td>tt0323998</td>
+      <td>6.9</td>
+      <td>10607</td>
+      <td>DK, FI, NO, SE</td>
+    </tr>
+    <tr>
+      <th>1072</th>
+      <td>https://www.netflix.com/title/60020782</td>
+      <td>America's Sweethearts</td>
+      <td>movie</td>
+      <td>Comedy, Romance</td>
+      <td>2001</td>
+      <td>tt0265029</td>
+      <td>5.7</td>
+      <td>61132</td>
+      <td>AT, CH, CY, DE, GB, GG, GI, GR, IE, IN, LI, PK...</td>
+    </tr>
+    <tr>
+      <th>1073</th>
+      <td>https://www.netflix.com/title/60020828</td>
+      <td>Black Knight</td>
+      <td>movie</td>
+      <td>Adventure, Comedy, Fantasy</td>
+      <td>2001</td>
+      <td>tt0265087</td>
+      <td>4.9</td>
+      <td>43956</td>
+      <td>BE, TN</td>
+    </tr>
+    <tr>
+      <th>1074</th>
+      <td>https://www.netflix.com/title/60024206</td>
+      <td>A Better Tomorrow</td>
+      <td>movie</td>
+      <td>Action, Crime, Drama</td>
+      <td>1986</td>
+      <td>tt0092263</td>
+      <td>7.4</td>
+      <td>26062</td>
+      <td>HK, ID, MY, PH, SG, TH, TW</td>
+    </tr>
+  </tbody>
+</table>
+<p>1075 rows × 9 columns</p>
+</div></div></div>
+</div>
+<section class="tex2jax_ignore mathjax_ignore" id="mean-using-pandas">
+<h1>Mean using pandas<a class="headerlink" href="#mean-using-pandas" title="Permalink to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mean</span> <span class="o">=</span> <span class="n">netflix_data</span><span class="p">[</span><span class="s1">&#39;imdbAverageRating&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The average IMDB rating for Netflix movies is </span><span class="si">{</span><span class="n">mean</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The average IMDB rating for Netflix movies is 6.7
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="median-using-pandas">
+<h1>Median using pandas<a class="headerlink" href="#median-using-pandas" title="Permalink to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">median</span> <span class="o">=</span> <span class="n">netflix_data</span><span class="p">[</span><span class="s1">&#39;imdbAverageRating&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The median IMDB rating for Netflix movies is </span><span class="si">{</span><span class="n">median</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The median IMDB rating for Netflix movies is 6.8
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="mode-using-pandas">
+<h1>Mode using pandas<a class="headerlink" href="#mode-using-pandas" title="Permalink to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mode</span> <span class="o">=</span> <span class="n">netflix_data</span><span class="p">[</span><span class="s1">&#39;imdbAverageRating&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mode</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The mode IMDB rating for Netflix movies is </span><span class="si">{</span><span class="n">mode</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The mode IMDB rating for Netflix movies is 7.3
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="mean-using-python-standard-library">
+<h1>Mean using Python standard library<a class="headerlink" href="#mean-using-python-standard-library" title="Permalink to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">csv</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;/Users/alexachan/Downloads/netflix_data - data.csv&#39;</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+    <span class="c1">#read the file</span>
+    <span class="n">netflix_data</span><span class="o">=</span><span class="n">csv</span><span class="o">.</span><span class="n">DictReader</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+
+    <span class="c1">#create empty variables</span>
+    <span class="nb">sum</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+    
+    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">netflix_data</span><span class="p">:</span>
+        <span class="c1">#convert ratings from strings to floats</span>
+        <span class="n">rating</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;imdbAverageRating&#39;</span><span class="p">])</span>
+        <span class="c1">#add up the value of each rating</span>
+        <span class="nb">sum</span> <span class="o">+=</span> <span class="n">rating</span>
+        <span class="c1">#count how many ratings there are in total</span>
+        <span class="n">count</span> <span class="o">+=</span><span class="mi">1</span> 
+
+    <span class="c1">#calculate the mean by dividing the sum of the ratings by the total number of ratings</span>
+    <span class="n">mean</span> <span class="o">=</span> <span class="nb">sum</span><span class="o">/</span><span class="n">count</span>
+        
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The average IMDB rating for Netflix is </span><span class="si">{</span><span class="n">mean</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The average IMDB rating for Netflix is 6.7
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="median-using-python-standard-library">
+<h1>Median using Python standard library<a class="headerlink" href="#median-using-python-standard-library" title="Permalink to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#create empty list</span>
+<span class="n">rating_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;/Users/alexachan/Downloads/netflix_data - data.csv&#39;</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+    <span class="c1">#read the file</span>
+    <span class="n">netflix</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">DictReader</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+    
+    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">netflix</span><span class="p">:</span>
+        <span class="c1">#convert ratings into floats and add to rating list</span>
+        <span class="n">rating_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;imdbAverageRating&#39;</span><span class="p">]))</span>
+        
+        <span class="c1">#sort ratings in numerical order</span>
+        <span class="n">rating_list</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">rating_list</span><span class="p">)</span>
+        
+        <span class="c1">#find midpoint</span>
+        <span class="n">midpoint</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">rating_list</span><span class="p">)</span><span class="o">//</span><span class="mi">2</span>
+        
+    <span class="c1">#calculate median by using the midpoint as the index</span>
+    <span class="n">median</span> <span class="o">=</span> <span class="n">rating_list</span><span class="p">[</span><span class="n">midpoint</span><span class="p">]</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The median IMDB rating for Netflix movies is </span><span class="si">{</span><span class="n">median</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The median IMDB rating for Netflix movies is 6.8
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="mode-using-python-standard-library">
+<h1>Mode using Python standard library<a class="headerlink" href="#mode-using-python-standard-library" title="Permalink to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#create empty dictionary to assign movie titles to corresponding ratings</span>
+<span class="n">rating_movies_dict</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;/Users/alexachan/Downloads/netflix_data - data.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+    <span class="c1">#read the file</span>
+    <span class="n">netflix_data</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">DictReader</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">netflix_data</span><span class="p">:</span>
+        <span class="c1">#assign rows to new variables</span>
+        <span class="n">movie</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">]</span>
+        <span class="n">rating</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;imdbAverageRating&#39;</span><span class="p">])</span>
+
+        <span class="c1"># add unique ratings to dictionary</span>
+        <span class="k">if</span> <span class="n">rating</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">rating_movies_dict</span><span class="p">:</span>
+            <span class="n">rating_movies_dict</span><span class="p">[</span><span class="n">rating</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># add movie titles to corresponding rating</span>
+        <span class="n">rating_movies_dict</span><span class="p">[</span><span class="n">rating</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">movie</span><span class="p">)</span>
+
+    <span class="c1">#create new dictionary to keep track of # of movies per rating (rather than each individual title)</span>
+    <span class="n">number_of_movies_per_rating</span> <span class="o">=</span> <span class="p">{}</span>
+    
+    <span class="k">for</span> <span class="n">rating</span> <span class="ow">in</span> <span class="n">rating_movies_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="c1">#assign number of movies per rating to corresponding keys in new dictionary</span>
+        <span class="n">number_of_movies_per_rating</span><span class="p">[</span><span class="n">rating</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">rating_movies_dict</span><span class="p">[</span><span class="n">rating</span><span class="p">])</span>
+
+    <span class="c1">#calculate the mode by pairing together maximum number of titles in a key with the corresponding key</span>
+    <span class="n">mode</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">number_of_movies_per_rating</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span> <span class="n">number_of_movies_per_rating</span><span class="o">.</span><span class="n">keys</span><span class="p">()))[</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The mode IMDB rating for Netflix movies is </span><span class="si">{</span><span class="n">mode</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The mode IMDB rating for Netflix movies is 7.3
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="data-visualization">
+<h1>Data Visualization<a class="headerlink" href="#data-visualization" title="Permalink to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#releaseYear x movie titles (show how many movies on Netflix were released in each year)</span>
+<span class="n">netflix_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;/Users/alexachan/Downloads/netflix_data - data.csv&#39;</span><span class="p">)</span>
+<span class="n">netflix_data</span><span class="p">[[</span><span class="s1">&#39;releaseYear&#39;</span><span class="p">,</span><span class="s1">&#39;title&#39;</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>releaseYear</th>
+      <th>title</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1994</td>
+      <td>Forrest Gump</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1997</td>
+      <td>The Fifth Element</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2003</td>
+      <td>Kill Bill: Vol. 1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2005</td>
+      <td>Jarhead</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1992</td>
+      <td>Unforgiven</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>1070</th>
+      <td>2005</td>
+      <td>Red Eye</td>
+    </tr>
+    <tr>
+      <th>1071</th>
+      <td>2003</td>
+      <td>Slim Susie</td>
+    </tr>
+    <tr>
+      <th>1072</th>
+      <td>2001</td>
+      <td>America's Sweethearts</td>
+    </tr>
+    <tr>
+      <th>1073</th>
+      <td>2001</td>
+      <td>Black Knight</td>
+    </tr>
+    <tr>
+      <th>1074</th>
+      <td>1986</td>
+      <td>A Better Tomorrow</td>
+    </tr>
+  </tbody>
+</table>
+<p>1075 rows × 2 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#create new max function that&#39;s separate from python standard library</span>
+<span class="k">def</span> <span class="nf">max1</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+
+<span class="c1">#create empty dictionary</span>
+<span class="n">year_movie_dict</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;/Users/alexachan/Downloads/netflix_data - data.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+    <span class="c1">#read the file</span>
+    <span class="n">netflix_data</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">DictReader</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">netflix_data</span><span class="p">:</span>
+        <span class="c1">#assign rows to new variables</span>
+        <span class="n">year</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;releaseYear&#39;</span><span class="p">]</span>
+        <span class="n">movie</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">]</span>
+
+        <span class="c1"># add unique years to dictionary</span>
+        <span class="k">if</span> <span class="n">year</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">year_movie_dict</span><span class="p">:</span>
+            <span class="n">year_movie_dict</span><span class="p">[</span><span class="n">year</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># add movie to corresponding year</span>
+        <span class="n">year_movie_dict</span><span class="p">[</span><span class="n">year</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">movie</span><span class="p">)</span>
+
+    <span class="c1">#create new dictionary to keep track of number of  movies released in each year</span>
+    <span class="n">movies_from_each_year</span> <span class="o">=</span> <span class="p">{}</span>
+    
+    <span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">year_movie_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+        <span class="c1">#assign movies to new dictionary in numerical order of keys</span>
+        <span class="n">movies_from_each_year</span><span class="p">[</span><span class="n">year</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">year_movie_dict</span><span class="p">[</span><span class="n">year</span><span class="p">]))</span>
+
+<span class="c1">#show how many movies on Netflix were released in each year</span>
+<span class="c1">#print(movies_from_each_year)</span>
+    
+    <span class="c1">#separate years from movie counts</span>
+    <span class="n">years</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">movies_from_each_year</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+    <span class="n">movie_counts</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">movies_from_each_year</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+    
+<span class="c1">#find the maximum</span>
+<span class="k">def</span> <span class="nf">max_movie</span><span class="p">(</span><span class="n">lst</span><span class="p">):</span>
+    <span class="n">max_movie</span> <span class="o">=</span> <span class="n">lst</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">lst</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">e</span> <span class="o">&gt;</span> <span class="n">max_movie</span><span class="p">:</span>
+            <span class="n">max_movie</span> <span class="o">=</span> <span class="n">e</span>
+    <span class="k">return</span> <span class="n">max_movie</span>
+    
+<span class="n">max_movie</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">movie_counts</span><span class="p">)</span>
+    
+<span class="c1">#find the minimum</span>
+<span class="k">def</span> <span class="nf">min_movie</span><span class="p">(</span><span class="n">lst</span><span class="p">):</span>
+    <span class="n">min_movie</span> <span class="o">=</span> <span class="n">lst</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">lst</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">e</span> <span class="o">&lt;</span> <span class="n">min_movie</span><span class="p">:</span>
+            <span class="n">min_movie</span> <span class="o">=</span> <span class="n">e</span>
+    <span class="k">return</span> <span class="n">min_movie</span>
+    
+<span class="n">min_movie</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">movie_counts</span><span class="p">)</span>
+    
+<span class="c1">#find the range</span>
+<span class="n">range_movie</span> <span class="o">=</span> <span class="n">max_movie</span> <span class="o">-</span> <span class="n">min_movie</span>
+    
+<span class="c1"># print sparklines for each year</span>
+<span class="n">bar</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">max1</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">int</span><span class="p">((</span><span class="n">count</span> <span class="o">-</span> <span class="n">min_movie</span><span class="p">)</span> <span class="o">/</span> <span class="n">range_movie</span> <span class="o">*</span> <span class="mi">100</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">movie_counts</span>
+<span class="p">]</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">year</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">years</span><span class="p">):</span>
+    <span class="n">sparkline</span> <span class="o">=</span> <span class="s1">&#39;*&#39;</span> <span class="o">*</span> <span class="n">bar</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>  
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">sparkline</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1950: *
+1951: *
+1952: *
+1953: *
+1954: *
+1955: *
+1956: *
+1957: **
+1959: *
+1960: *
+1961: *
+1962: *
+1963: **
+1964: *****
+1965: *
+1966: *****
+1967: *
+1968: **
+1969: *
+1970: ****
+1971: *
+1972: *
+1973: ***
+1974: ******
+1975: ***
+1976: ******
+1977: ***
+1978: *****
+1979: **
+1980: ****
+1981: *********
+1982: ***
+1983: ********
+1984: ************
+1985: ******
+1986: *************
+1987: ************
+1988: *************
+1989: *************
+1990: **********
+1991: *********************
+1992: ********************
+1993: **************************
+1994: ***************************
+1995: *****************************
+1996: ***************************
+1997: ***********************************
+1998: ***************************************
+1999: *********************************
+2000: ********************************************************
+2001: ***************************************************************
+2002: ******************************************************************
+2003: ***********************************************************************************
+2004: ****************************************************************************************************
+2005: *********************************************************************************************
+2006: ************************************************************************************************
+2007: ************************************************************************************************
+2008: *********************************************************
+2009: ****************
+2010: *
+2012: *
+2013: *
+2014: *
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="disclaimers">
+<h1>Disclaimers<a class="headerlink" href="#disclaimers" title="Permalink to this heading">#</a></h1>
+<p>I used ChatGPT to figure out how to represent the counts as asterisks in the data visualization section and to create max1 (a new max function to make sure that years with only 1 movie were represented by asterisks</p>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Mean using pandas</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#median-using-pandas">Median using pandas</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#mode-using-pandas">Mode using pandas</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#mean-using-python-standard-library">Mean using Python standard library</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#median-using-python-standard-library">Median using Python standard library</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#mode-using-python-standard-library">Mode using Python standard library</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#data-visualization">Data Visualization</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#disclaimers">Disclaimers</a></li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Jupyter Book community
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
