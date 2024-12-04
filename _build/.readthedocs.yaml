@@ -11,4 +11,4 @@ build:
       - jupyter-book config sphinx .
 
 conda:
-  environment: environment.yml
+  environment: environment.yaml
