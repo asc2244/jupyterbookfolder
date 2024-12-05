@@ -10,5 +10,9 @@ build:
     pre_build:
       - jupyter-book config sphinx .
 
+# The `make` command uses this to build the docs
+html:
+    sphinx-build -b html -d _build/doctrees . $READTHEDOCS_OUTPUT/html
+
 conda:
   environment: environment.yaml
