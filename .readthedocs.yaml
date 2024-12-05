@@ -9,7 +9,6 @@ build:
   jobs:
     pre_build:
       - jupyter-book config sphinx .
-
 html:
   theme: sphinx_rtd_theme 
   
