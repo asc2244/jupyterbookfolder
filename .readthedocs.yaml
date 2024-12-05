@@ -10,9 +10,8 @@ build:
     pre_build:
       - jupyter-book config sphinx .
 
-# The `make` command uses this to build the docs
 html:
-  theme: sphinx_rtd_theme  # or another theme if you're using a custom one
-
+  theme: sphinx_rtd_theme 
+  
 conda:
   environment: environment.yaml
