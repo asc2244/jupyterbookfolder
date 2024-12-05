@@ -12,7 +12,7 @@ build:
 
 # The `make` command uses this to build the docs
 html:
-    sphinx-build -b html -d _build/doctrees . READTHEDOCS_OUTPUT/html
+  theme: sphinx_rtd_theme  # or another theme if you're using a custom one
 
 conda:
   environment: environment.yaml
